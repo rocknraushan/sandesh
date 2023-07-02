@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "433794825483",
+    "firebase_url": "https://sandesh-31934-default-rtdb.firebaseio.com",
+    "project_id": "sandesh-31934",
+    "storage_bucket": "sandesh-31934.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433794825483:android:45fe009b7a971b00f2760e",
+        "android_client_info": {
+          "package_name": "com.rocksoft.sandesh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433794825483-73q19lrg6mmqvevpanv8ir0l3gd3unt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rocksoft.sandesh",
+            "certificate_hash": "2b7c7f2f995c2cd10b8b950f499bc602828c0866"
+          }
+        },
+        {
+          "client_id": "433794825483-t3dfodqkhh6l7c3cfufnfabvh4umhjn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBLUS8OOZWqPJWBsIZi2Ifg9D4LikTPzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433794825483-t3dfodqkhh6l7c3cfufnfabvh4umhjn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

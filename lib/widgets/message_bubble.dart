@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-enum MessageStatus { sent, delivered, read }
+// enum MessageStatus { sent, delivered, read }
 
 class MessageBubble extends StatelessWidget {
-  final String message;
+  final dynamic message;
   final bool isMe;
-  final String timeStamp;
-  final MessageStatus status;
+  final dynamic timeStamp;
+  final dynamic status;
 
-  MessageBubble({
+  const MessageBubble({
     super.key,
     required this.message,
     required this.isMe,
     required this.status,
     required this.timeStamp
   });
+
+
 
   // bool? read;
   // const MessageBubble({super.key, required this.isMe, required this.message, required this.timeStamp});
@@ -72,6 +74,7 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
     final chatWidth = (screenwidth/1.5);
+    final String formattedTime = DateFormat('h:mm a').format(DateTime.parse(timeStamp));
     return Column(
       crossAxisAlignment:
           isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -105,7 +108,7 @@ class MessageBubble extends StatelessWidget {
                   isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children:[
                   Text(
-                  timeStamp.toString(), // Format timestamp as desired
+                  formattedTime, // Format timestamp as desired
                   style: TextStyle(
                     fontSize: 12,
                     color: isMe ? Colors.white70 : Colors.black54,
@@ -113,9 +116,9 @@ class MessageBubble extends StatelessWidget {
                 ),
                   if(isMe)
                   Icon(
-                    status == MessageStatus.read ? Icons.done_all : Icons.done,
+                    status == "sent" ? Icons.done : (status=="read")?Icons.done_all_outlined:Icons.upload,
                     size: 16,
-                    color: status == MessageStatus.read ? Colors.blue : Colors.grey,
+                    color: status == "seen" ? Colors.blue : Colors.grey,
                   )
                 ]
               ),

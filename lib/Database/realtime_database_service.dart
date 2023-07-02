@@ -6,7 +6,7 @@ import 'package:sandesh/models/profiledata.dart';
 class FirebaseRealtimeDatabaseService {
   final DatabaseReference _usersRef = FirebaseDatabase.instance.ref().child('users');
   final DatabaseReference _roomRef = FirebaseDatabase.instance.ref().child('rooms');
-  final DatabaseReference _messagesRef = FirebaseDatabase.instance.ref('chats');
+  // final DatabaseReference _messagesRef = FirebaseDatabase.instance.ref('rooms/')_roomRef.child('$roomId/chat_list');
   final DatabaseReference _groupRef =  FirebaseDatabase.instance.ref().child('groups');
   
   Future<void> createUserWithPhone(String phone, String userid, String username, String? dpurl) async{
@@ -49,18 +49,32 @@ class FirebaseRealtimeDatabaseService {
     return _usersRef.child(userId).child('last_active').onValue;
   }
   //
-  Future<void> sendMessage(String roomId, String senderId, String content, int timestamp) async {
-    DatabaseReference newMessageRef = _messagesRef.push();
+  Future<void> sendMessage(String roomId, String senderId, String content,) async {
+    DatabaseReference newMessageRef = _roomRef.child('$roomId/chat_list').push();
     String? chatId = newMessageRef.key;
     await newMessageRef.set({
       'sender_id': senderId,
       'content': content,
-      'timestamp': timestamp,
+      'timestamp': DateTime.now().toString(),
       'status': 'sent',
-    }).then(
-            (value) async =>
-            await _roomRef.child('$roomId/chat_list/$chatId')
-                .set(true));
+    });
+        // .then(
+        //     (value) async {
+        //
+        //     // Retrieve the current value from the Realtime Database
+        //     // databaseReference.child('your_node').once().then((DataSnapshot snapshot) {
+        //     //   int currentValue = snapshot.value ?? 0;
+        //     //
+        //     //   // Increment the retrieved value by one
+        //     //   int incrementedValue = currentValue + 1;
+        //     //
+        //     //   // Update the incremented value back to the Realtime Database
+        //     //   databaseReference.child('your_node').set(incrementedValue);
+        //     // await _usersRef.child(senderId).child('contact').child("last_message").set(content);
+        //     // await _usersRef.child(senderId).child('contact').child("latest_messageTime").set(timestamp);
+        //
+        //     });
+
   }
   
   Future<void> addContact(String contactPhone, String name, String myPhoneNumber)async {
@@ -98,10 +112,10 @@ class FirebaseRealtimeDatabaseService {
       final roomKey =
               "$myPhoneNumber%$contactPhone";
      await _roomRef.child(roomKey).set({
-        contactPhone: true,
-        myPhoneNumber:true,
+        // contactPhone: true,
+        // myPhoneNumber:true,
         "chat_ids": [],
-        "group": false
+
       });
 
 
@@ -110,11 +124,12 @@ class FirebaseRealtimeDatabaseService {
         "typing_status": false,
         "online_status": false,
         "last_message": "",
-        "latest_chatId": "",
+        "latest_messageTime": "",
         "dpurl": dpurl ?? "",
         "message_count": 0,
         "room_id":roomKey,
-        "name": name
+        "name": name,
+        "phoneNumber": contactPhone
       });
 
 
@@ -122,12 +137,13 @@ class FirebaseRealtimeDatabaseService {
 
       "typing_status": false,
       "online_status": false,
-      "last_message": "",
+     "latest_messageTime": "",
      "latest_chatId": "",
       "dpurl": myDpUrl ?? "",
      "message_count": 0,
      "room_id":roomKey,
-     "name": myName
+     "name": myName,
+     "phoneNumber": myPhoneNumber
     });
   }
 
@@ -136,15 +152,33 @@ class FirebaseRealtimeDatabaseService {
   }
 
 
-  Future<void> updateMessageStatus(String chatId, String messageId, String status) async {
-    await _messagesRef.child(chatId).child(messageId).child('status').set(status);
+  Future<void> updateMessageStatus(String chatId, String roomId, String status) async {
+    await _roomRef.child(roomId).child('chat_list/$chatId').child('status').set(status);
   }
-
-  Stream<DatabaseEvent> listenToChatMessage(String chatId) {
-    return _messagesRef.child(chatId).child('message').onValue;
-  }
-
-  Stream<DatabaseEvent> listenToChatMessageTimestamp(String chatId) {
-    return _messagesRef.child(chatId).child('timestamp').onValue;
-  }
+  
+  // Stream<DatabaseEvent> listenToChatId(String roomId){
+  //     String? chatId;
+  //   _roomRef.child('$roomId/chat_list').orderByKey().limitToLast(10).onValue.listen((event) {
+  //       if(event.snapshot.value!= null) {
+  //         final data =
+  //             event.snapshot.value! as Map<dynamic, Map<dynamic, dynamic>>;
+  //           data.forEach((key, value) {
+  //             final json = value;
+  //             print(json['status']);
+  //           });
+  //
+  //
+  //         print('checking ============$chatId');
+  //       }
+  //   });
+  //   return listenToChatMessage(chatId!);
+  // }
+  //
+  // Future<DataSnapshot> listenToChatMessage(String roomId) {
+  //   return _roomRef.child(roomId).child('message').orderByValue().get();
+  // }
+  //
+  // Stream<DatabaseEvent> listenToChatMessageTimestamp(String chatId) {
+  //   return _messagesRef.child(chatId).child('timestamp').onValue;
+  // }
 }

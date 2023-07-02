@@ -20,7 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _nameController = TextEditingController();
   String? _contactPhone;
 
-  late String phoneNumber;
+  String? phoneNumber;
   Future<void> getPhone() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? savedPhone = preferences.getString('phoneNumber');
@@ -35,8 +35,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    super.initState();
     getPhone();
+    super.initState();
   }
 
   popUpDialog(BuildContext context, String myPhoneNumber) {
@@ -127,7 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: Colors.grey.shade900,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          popUpDialog(context, phoneNumber);
+          popUpDialog(context, phoneNumber!);
         },
         elevation: 10,
         child: const Icon(
@@ -135,6 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
           color: Colors.white,
         ),
       ),
+
       body: StreamBuilder(
         stream:contactRef.orderByKey().limitToLast(10).onValue,
         builder: (context, snapshot) {
@@ -153,7 +154,15 @@ class _ChatScreenState extends State<ChatScreen> {
               // print(nextData);
               // print(snapshot.data!.snapshot.value.toString());
               // print(nextData['dpurl']);
-              final newTile = ChatList.fromJson(nextData as Map<String, dynamic>);
+              final newTile = ChatList.fromJson(nextData);
+              // ChatList(
+              //   username: nextData['name'],
+              //   profileImgUrl: nextData['dpurl'],
+              //   message_count: nextData['message_count'] ?? 0,
+              //   lastMsgTime: "lsfjjs",
+              //   message: "sfjlajsf", room_id: nextData['room_id'],
+              //
+              // );
               tilesList.add(newTile);
             });
           } else {
