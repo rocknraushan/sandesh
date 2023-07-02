@@ -41,6 +41,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          primary: true,
+          backgroundColor: Colors.green,
+
+        ),
         body: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -73,6 +78,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               const SizedBox(height: 15),
               EasyContainer(
                 width: double.infinity,
+                color: Colors.green[300],
+                elevation: 2,
                 onTap: () async {
                   if (isNullOrBlank(phoneNumber) ||
                       !_formKey.currentState!.validate()) {

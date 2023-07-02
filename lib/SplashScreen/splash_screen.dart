@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   startTimer(){
     Timer(
-      const Duration(seconds: 5),
+      const Duration(seconds: 1),
         () async {
           final isLoggedIn = Globals.auth.currentUser != null;
          // await ref.child('users').set({

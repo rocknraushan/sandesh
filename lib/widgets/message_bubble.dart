@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-enum MessageStatus { sent, delivered, read }
+// enum MessageStatus { sent, delivered, read }
 
 class MessageBubble extends StatelessWidget {
-  final String message;
+  final dynamic message;
   final bool isMe;
-  final String timeStamp;
-  final MessageStatus status;
+  final dynamic timeStamp;
+  final dynamic status;
 
-  MessageBubble({
-    super.key,
-    required this.message,
-    required this.isMe,
-    required this.status,
-    required this.timeStamp
-  });
+  const MessageBubble(
+      {super.key,
+      required this.message,
+      required this.isMe,
+      required this.status,
+      required this.timeStamp});
 
   // bool? read;
   // const MessageBubble({super.key, required this.isMe, required this.message, required this.timeStamp});
@@ -71,55 +70,68 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
-    final chatWidth = (screenwidth/1.5);
+    final chatWidth = (screenwidth / 1.5);
+    final String formattedTime =
+        DateFormat('h:mm a').format(DateTime.parse(timeStamp));
     return Column(
       crossAxisAlignment:
           isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: isMe ? const Color(0x00128C7E): Colors.grey.shade700,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(12),
-              topRight: const Radius.circular(12),
-              bottomLeft: !isMe ? const Radius.circular(0) : const Radius.circular(12),
-              bottomRight: isMe ? const Radius.circular(0) : const Radius.circular(12),
+        IntrinsicWidth(
+
+          child: Card(
+            color: isMe
+                ? const Color.fromRGBO(0, 93, 75, 1)
+                : const Color.fromRGBO(31, 44, 52, 30),
+            elevation: 5,
+
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(12),
+                topRight: const Radius.circular(12),
+                bottomLeft:
+                    !isMe ? const Radius.circular(0) : const Radius.circular(12),
+                bottomRight:
+                    isMe ? const Radius.circular(0) : const Radius.circular(12),
+              ),
             ),
-          ),
-          width: chatWidth,
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          child: Column(
-            crossAxisAlignment:
-                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              Text(
-                message,
-                style: const TextStyle(
-                 color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment:
-                  isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-                children:[
+            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment:
+                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                children: [
                   Text(
-                  timeStamp.toString(), // Format timestamp as desired
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isMe ? Colors.white70 : Colors.black54,
+                    message,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                  if(isMe)
-                  Icon(
-                    status == MessageStatus.read ? Icons.done_all : Icons.done,
-                    size: 16,
-                    color: status == MessageStatus.read ? Colors.blue : Colors.grey,
-                  )
-                ]
+                  const SizedBox(height: 4),
+                  Row(
+                      mainAxisAlignment:
+                          isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          formattedTime, // Format timestamp as desired
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.white70),
+                        ),
+                        if (isMe)
+                          Icon(
+                            status == "sent"
+                                ? Icons.done
+                                : (status == "read")
+                                    ? Icons.done_all_outlined
+                                    : Icons.upload,
+                            size: 16,
+                            color: status == "seen" ? Colors.blue : Colors.grey,
+                          )
+                      ]),
+                ],
               ),
-            ],
+            ),
           ),
         ),
         const SizedBox(height: 4),

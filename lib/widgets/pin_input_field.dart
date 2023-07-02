@@ -83,15 +83,21 @@ class _PinInputFieldState extends State<PinInputField> {
     return SizedBox(
       height: size.height * _focusScaleFactor,
       child: Pinput(
+
+
         length: _length,
         defaultPinTheme: defaultPinTheme,
         focusedPinTheme: defaultPinTheme.copyWith(
           height: size.height * _focusScaleFactor,
           width: size.width * _focusScaleFactor,
+          textStyle: const TextStyle(color: Colors.black),
           decoration: defaultPinTheme.decoration!.copyWith(
             border: Border.all(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
+        submittedPinTheme: const PinTheme(textStyle: TextStyle(
+    color: Colors.black54, fontSize: 30
+    ),),
         errorPinTheme: defaultPinTheme.copyWith(
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.error,

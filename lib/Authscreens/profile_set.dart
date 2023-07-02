@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sandesh/Database/realtime_database_service.dart';
 import 'package:sandesh/HomeScreen/homescreen.dart';
 import 'package:sandesh/global/global.dart';
 import 'package:sandesh/widgets/custom_text_field.dart';
@@ -62,6 +63,10 @@ class _SetProfileState extends State<SetProfile> {
     await taskSnapshot.ref.getDownloadURL().then((url) async {
       userImageUrl = url;
     });
+
+    //listing user to searchList
+    FirebaseRealtimeDatabaseService rtdb = FirebaseRealtimeDatabaseService();
+    rtdb.listToSearch(name, phoneNumber!);
 
     //Setting Profile info to the database.
     DatabaseReference ref = FirebaseDatabase.instance.ref();

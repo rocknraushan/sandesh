@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../Authscreens/authentication_screen.dart';
 import '../Authscreens/profile_set.dart';
 import '../HomeScreen/homescreen.dart';
-import '../SplashScrren/splash_screen.dart';
+import '../SplashScreen/splash_screen.dart';
 import '../global/global.dart';
 import 'package:sandesh/authscreens/verify_phone_number.dart';
 

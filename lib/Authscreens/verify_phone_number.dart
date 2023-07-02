@@ -239,6 +239,7 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
                       ),
                       const SizedBox(height: 15),
                       PinInputField(
+
                         length: 6,
                         onFocusChange: (hasFocus) async {
                           if (hasFocus) await _scrollToBottomOnKeyboardOpen();

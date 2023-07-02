@@ -2,7 +2,7 @@
 
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:sandesh/SplashScrren/splash_screen.dart';
+import 'package:sandesh/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sandesh/utils/app_theme.dart';
 import 'package:sandesh/utils/global1.dart';
