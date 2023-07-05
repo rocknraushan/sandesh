@@ -34,18 +34,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   }
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          primary: true,
-          backgroundColor: Colors.green,
-
-        ),
         body: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(

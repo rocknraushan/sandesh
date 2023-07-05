@@ -108,7 +108,7 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
          DatabaseReference usersRef = ref.child('users');
          await usersRef.child(widget.phoneNumber).once().then((snapshot){
 
-            if(snapshot != null){
+            if(snapshot.snapshot.exists){
               log(VerifyPhoneNumberScreen.id,
               msg: 'Welcome back');
               Navigator.pushNamedAndRemoveUntil(

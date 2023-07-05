@@ -44,7 +44,7 @@ class _GroupState extends State<GroupScreen>{
           return AlertDialog(
             backgroundColor: const Color.fromRGBO(0, 128, 106, 1),
             title: const Text(
-              "Add Contact",
+              "Create New Group",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 14,
